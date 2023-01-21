@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+
+@font-face {
+  font-family: 'Rick and Morty';
+  src: url('/assets/fonts/Rick-and-Morty-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  background-color: #082032;
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+}
+
+.main-wrap {
+  margin: 0 auto;
+  padding: 60px 20px 0 20px;
+  max-width: 1400px;
+  min-width: 725px;
+}
+
+.main-heading {
+  font-family: 'Rick and Morty', 'Roboto', sans-serif;
+  font-size: 76px;
+  text-align: center;
+}
+
+.main-heading__small {
+  font-size: 36px;
+  padding: 0 15px;
+}
+
+.characters-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  padding: 60px 0;
+}
+
+.character-card {
+  background-color: #2C394B;
+  border-radius: 16px;
+  display: flex;
+  overflow: hidden;
+  width: 685px;
+  height: 250px;
+}
+
+.character-card__img-holder {
+  width: 250px;
+}
+
+.character-card__img {
+  object-fit: cover;
+  height: 250px;
+  width: 250px;
+}
+
+.character-card__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.character-card__header {
+  font-weight: 500;
+}
+
+.character-card__heading {
+  font-size: 30px;
+  font-weight: 900;
+}
+
+.character-card__desc {
+  display: flex;
+  align-items: center;
+  padding-top: 10px;
+}
+
+.character-card__desc::before {
+  background-color: green;
+  content: "";
+  border-radius: 50%;
+  margin-right: 8px;
+  height: 10px;
+  width: 10px;
+}
+
+.character-card__desc--dead::before {
+  background-color: red;
+}
+
+.character-card__desc--unknown::before {
+  background-color: gray;
+}
+
+.character-card__section {
+}
+
+.character-card__title {
+  display: block;
+  color: #979797;
+  font-weight: 500;
+}
+
+.character-card__value {
+  display: block;
+  font-size: 18px;
+  font-weight: 300;
+  padding-top: 6px;
+}

@@ -1,5 +1,4 @@
 import {
-    CharacterRequestInfo,
     CharacterToDisplay,
     CharacterRequestResults,
     CharacterRequest,
@@ -97,7 +96,7 @@ const triggerToast = () => {
 }
 
 const removeInfiniteScroll = () => {
-    window.removeEventListener("scroll", handleInfiniteScroll)
+    window.removeEventListener('scroll', handleInfiniteScroll)
 }
 
 const handleInfiniteScroll = () => {

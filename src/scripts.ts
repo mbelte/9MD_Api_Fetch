@@ -1,63 +1,14 @@
+import {
+    CharacterRequestInfo,
+    CharacterToDisplay,
+    CharacterRequestResults,
+    CharacterRequest,
+    EpisodeRequest
+} from "./types"
 
 
-
-
-
-
-type CharacterRequestInfo = {
-    count: number,
-    next: string | null,
-    pages: number,
-    prev: string | null,
-}
-
-type CharacterBasicInfo = {
-    name: string,
-    species: string,
-    status: "Alive" | "Dead" | "unknown",
-    image: string,
-}
-
-type CharacterToDisplay = CharacterBasicInfo & {
-    firstEpName: string,
-    firstEpNum: string,
-    lastLocation: string,
-    origin: string,
-}
-
-type CharacterRequestResults = CharacterBasicInfo & {
-    created: string,
-    episode: string[],
-    gender: string,
-    id: number,
-    origin: {
-        name: string,
-        url: string,
-    },
-    location: {
-        name: string,
-        url: string,
-    },
-    type: string,
-    url: string,
-}
-
-type CharacterRequest = {
-    info: CharacterRequestInfo,
-    results: CharacterRequestResults[],
-}
-
-type EpisodeRequest = {
-    air_date: string,
-    characters: string[],
-    created: string,
-    episode: string,
-    id: number,
-    name: string,
-    url: string,
-}
-
-let page = 1
+let currentPage = 1,
+    nextPage: string | null
 
 const drawCardSectionHtml = (title: string, val: string, val2: string = '') => {
     return `
@@ -114,9 +65,11 @@ const fetchCharacters = (page: number) => {
 
     fetch('https://rickandmortyapi.com/api/character/?page=' + page)
         .then((response) => response.json())
-        .then((charData: CharacterRequest) => charData.results.forEach((char: CharacterRequestResults) => {
+        .then((charData: CharacterRequest) => {
+            
+            nextPage = charData.info.next
 
-            page++
+            charData.results.forEach((char: CharacterRequestResults) => {
 
             fetch(char.episode[0])
                 .then((response) => response.json())
@@ -132,12 +85,36 @@ const fetchCharacters = (page: number) => {
                         firstEpName: epData.name,
                         firstEpNum: epData.episode
                     })
+                })
             })
-    }))
+        })
 }
 
-const appendCards = () => {
-    const fetchedCharacetrs = fetchCharacters(page)
+const triggerToast = () => {
+    const toast = document.querySelector<HTMLDivElement | null>('.toast')
+
+    toast.classList.add('toast--visible')
 }
 
-appendCards()
+const removeInfiniteScroll = () => {
+    window.removeEventListener("scroll", handleInfiniteScroll)
+}
+
+const handleInfiniteScroll = () => {
+    const endOfPage = window.innerHeight + window.pageYOffset >= document.body.offsetHeight
+
+    if (endOfPage) {
+
+        if(nextPage !== null) {
+            currentPage++
+            fetchCharacters(currentPage)
+        } else {
+            triggerToast()
+            removeInfiniteScroll()
+        }
+    }
+}
+
+window.addEventListener("scroll", handleInfiniteScroll)
+
+fetchCharacters(currentPage)

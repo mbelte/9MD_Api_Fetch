@@ -15,9 +15,10 @@ body {
 
 .main-wrap {
   margin: 0 auto;
-  padding: 60px 20px 0 20px;
+  padding: 60px 20px 40px 20px;
   max-width: 1400px;
   min-width: 725px;
+  position: relative;
 }
 
 .main-heading {
@@ -111,4 +112,22 @@ body {
   font-size: 18px;
   font-weight: 300;
   padding-top: 6px;
+}
+
+.toast {
+  background-color: #FF4C29;
+  border-radius: 10px 10px 0 0;
+  color: #fff;
+  position: absolute;
+  bottom: -100px;
+  left: 0;
+  opacity: 0;
+  padding: 20px 0;
+  text-align: center;
+  transition: bottom 1s, opacity 1s;
+  width: 100%;
+}
+.toast--visible {
+  bottom: 0;
+  opacity: 1;
 }
